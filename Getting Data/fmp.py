@@ -1,8 +1,5 @@
 # ============================================================================
 # getting fundamental data from financialmodelingprep.com
-# Author - Mayank Rasu
-
-# Please report bugs/issues in the Q&A section
 # =============================================================================
 
 import requests
