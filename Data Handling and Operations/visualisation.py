@@ -1,8 +1,5 @@
 # =============================================================================
 # Import OHLCV data and perform basic visualizations
-# Author : Mayank Rasu (http://rasuquant.com/wp/)
-
-# Please report bug/issues in the Q&A section
 # =============================================================================
 
 # Import necesary libraries
