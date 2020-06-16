@@ -1,8 +1,5 @@
 # =============================================================================
 # Import OHLCV data and calculate ATR and Bollinger Band
-# Author : Mayank Rasu
-
-# Please report bug/issues in the Q&A section
 # =============================================================================
 
 # Import necesary libraries
