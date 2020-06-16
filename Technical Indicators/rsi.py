@@ -23,6 +23,8 @@ def RSI(DF,n):
     avg_loss = []
     gain = df['gain'].tolist()
     loss = df['loss'].tolist()
+    #notice that the first row of gain and loss is nan or has no utility so we use the 15th row 
+    #for sma in the for loop below instead of the 14th row
     for i in range(len(df)):
         if i < n:
             avg_gain.append(np.NaN)
