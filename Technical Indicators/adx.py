@@ -1,8 +1,5 @@
 # =============================================================================
 # Import OHLCV data and calculate ATR and ADX technical indicators
-# Author : Mayank Rasu (http://rasuquant.com/wp/)
-
-# Please report bug/issues in the Q&A section
 # =============================================================================
 
 # Import necesary libraries
@@ -26,7 +23,7 @@ def ATR(DF,n):
     df2 = df.drop(['H-L','H-PC','L-PC'],axis=1)
     return df2
 
-
+#The TR calculation in the ATR function doesn't need 'n' but he function ATR is being called so we have to pass the paramenter n
 def ADX(DF,n):
     "function to calculate ADX"
     df2 = DF.copy()
@@ -35,6 +32,9 @@ def ADX(DF,n):
     df2['DMplus']=np.where(df2['DMplus']<0,0,df2['DMplus'])
     df2['DMminus']=np.where((df2['Low'].shift(1)-df2['Low'])>(df2['High']-df2['High'].shift(1)),df2['Low'].shift(1)-df2['Low'],0)
     df2['DMminus']=np.where(df2['DMminus']<0,0,df2['DMminus'])
+    
+    #Below are the calculations for columns whose averaging formula is not consistent
+    #thus we use lists in a conditional control structure inside a for loop that moves from one row to the next
     TRn = []
     DMplusN = []
     DMminusN = []
@@ -57,11 +57,16 @@ def ADX(DF,n):
     df2['TRn'] = np.array(TRn)
     df2['DMplusN'] = np.array(DMplusN)
     df2['DMminusN'] = np.array(DMminusN)
+    
+    #Below are straigtforward vector operations applicable because of consistent formula
     df2['DIplusN']=100*(df2['DMplusN']/df2['TRn'])
     df2['DIminusN']=100*(df2['DMminusN']/df2['TRn'])
     df2['DIdiff']=abs(df2['DIplusN']-df2['DIminusN'])
     df2['DIsum']=df2['DIplusN']+df2['DIminusN']
     df2['DX']=100*(df2['DIdiff']/df2['DIsum'])
+    
+    #finally the ADX calculation with inconsistent averaging formula.
+    #The index is very important
     ADX = []
     DX = df2['DX'].tolist()
     for j in range(len(df2)):
