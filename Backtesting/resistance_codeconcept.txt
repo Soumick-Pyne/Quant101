@@ -1,0 +1,16 @@
+I am storing every period's returns for each ticker in tickers_ret dictionary. The keys of this dictionary are the stocks and the values are lists of periodic return for each stock.
+
+The list is populated using the below logic:
+
+if there is no signal, the return of that period is 0
+
+if there is an open buy position, the return of each period is (close_price of current period/close_price of previous period)-1
+
+if there is an open sell position, the return of each period is (close_price of previous period/close_price of current period)-1
+
+Calculating returns for periods in which new positions uses the same formula. My assumption is that if we get a signal at the end of a candle, we will be able to execute the trade at the closing price of that candle (very naive assumption). Therefore for a new buy or sell signal the formula above will remain the same.
+
+Calculating returns for periods in which existing positions are closed is tricky. My assumption is that all existing positions will have a rolling stop loss equal to (close price - ATR). Therefore if the stop loss is triggered, you will exit at the above price. I use this price to calculate the return for that particular period.
+
+
+Once the tickers_ret  dictionary is fully populated, I change this to a returns dataframe for KPI calculation.
